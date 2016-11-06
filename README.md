@@ -25,7 +25,9 @@ Filozofowie są ponumerowani od 1 do ustalonego n. Pałeczki mogą być *czyste*
     * przekazać sąsiadowi, jeśli jest brudna. Przed przekazaniem pałeczki musi ją wyczyścić.
   4. Gdy filozof kończy jeść, pałeczki stają się brudne.
 
-### Praktyczne uzasadnienie realizowanego problemu
+### Drugie podejście do praktycznego uzasadnienienia realizowanego problemu
+Zauważmy, że problem ten jest analogią do braku dostępu do współdzielonych zasobów w rzeczywistym programowaniu komputerów, w sytuacji zwanej współbieżnością.
+
 Zbliżone problemy możemy uzyskać przy rezerwacji książek w systemie biblitecznym lub biletów do kina. Wystarczy, aby rezerwacja wymagała dostępu do dwóch zestawów danych, do których dostęp może mieć tylko jeden terminal rezerwacji na raz, np. kolejka zamówień książki czy lista miejsc wolnych i zarezerwowanych w sali oraz lista kolejnych rezerwacji w danym dniu.
 
 *Na podstawie: https://en.wikipedia.org/wiki/Dining_philosophers_problem*
