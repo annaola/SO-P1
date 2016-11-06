@@ -11,3 +11,5 @@ Filozofowie nie rozmawiają ze sobą, co stwarza zagrożenie impasu lub zagłodz
 
 Brak widelców jest analogią do barku sdostępu do plików.
 
+blah
+
