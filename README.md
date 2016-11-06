@@ -10,6 +10,7 @@ Zespół: Anna Biadasiewicz, Michał Martusewicz
 Pięciu filozofów siedzi przy stole i wykonuje jedną z dwóch czynności - je albo rozmyśla. Stół jest okrągły, przed każdym z filozofów postawiono miseczkę z ryżem. Między każdą parą filozofów leży pałeczka do ryżu. Do jedzenia każdy filozof potrzebuje dwóch pałeczek. Oczywiście, może korzystać tylko z pałeczek znajdujących się tuż obok niego. Gdy filozof przestaje rozmyślać, sięga kolejno po jedną i drugą pałeczkę, pod warunkiem, że jest to możliwe.
 Brak pałeczek jest analogią do braku dostępu do plików.
 
+<<<<<<< HEAD
 #### Potencjalne problemy
 Filozofowie nie rozmawiają ze sobą, co stwarza zagrożenie impasu (gdy każdy z filozofów trzyma jeden widelec) lub zagłodzenia (gdy jeden z filozofów w ogóle nie otrzymuje dostępu do pałeczek).
 
