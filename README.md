@@ -8,6 +8,7 @@ Zespół: Anna Biadasiewicz, Michał Martusewicz
 
 ### Podstawowy problem
 Pięciu filozofów siedzi przy stole i wykonuje jedną z dwóch czynności - je albo rozmyśla. Stół jest okrągły, przed każdym z filozofów postawiono miseczkę z ryżem. Między każdą parą filozofów leży pałeczka do ryżu. Do jedzenia każdy filozof potrzebuje dwóch pałeczek. Oczywiście, może korzystać tylko z pałeczek znajdujących się tuż obok niego. Gdy filozof przestaje rozmyślać, sięga kolejno po jedną i drugą pałeczkę, pod warunkiem, że jest to możliwe.
+
 Brak pałeczek jest analogią do braku dostępu do plików.
 
 #### Potencjalne problemy
