@@ -26,5 +26,7 @@ Filozofowie są ponumerowani od 1 do ustalonego n. Pałeczki mogą być *czyste*
 	Przed przekazaniem pałeczki, filozof musi ją wyczyścić.
 4. Gdy filozof kończy jeść, pałeczki stają się brudne.
 
+### Praktyczne uzasadnienie realizowanego problemu
+???
 
 *Na podstawie: https://en.wikipedia.org/wiki/Dining_philosophers_problem*
