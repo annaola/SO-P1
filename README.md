@@ -27,7 +27,7 @@ Filozofowie są ponumerowani od 1 do ustalonego n. Pałeczki mogą być *czyste*
   4. Gdy filozof kończy jeść, pałeczki stają się brudne.
 
 ### Pierwsze podejście do praktycznego uzasadnienienia realizowanego problemu
-Zauważmy, że problem ten jest analogią do analogią braku dostępu do współdzielonych zasobów w rzeczywistym programowaniu komputerów, w sytuacji zwanej współbieżnością. 
+Zauważmy, że problem ten jest analogią do analogią braku dostępu do współdzielonych zasobów w rzeczywistym programowaniu komputerów, w sytuacji zwanej współbieżnością. Możemy to odnieść do rezerwowania książek i plików zawierających historię rezerwacji, listę książek, itd.
 
 
 *Na podstawie: https://en.wikipedia.org/wiki/Dining_philosophers_problem*
