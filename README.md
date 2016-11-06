@@ -18,13 +18,13 @@ Rozważamy problem dla dowolnej ustalonej liczby filozofów i dowolnej ustalonej
 
 ### Możliwe rozwiązanie (wg Chandy/Misra)
 Filozofowie są ponumerowani od 1 do ustalonego n. Pałeczki mogą być *czyste* lub *brudne*.
-1. Dla każdej pary ubiegającej się o dostęp do zasobów, tworzymy brudną pałeczkę i przekazujemy ją filozofowi o niższym numerze.
-2. Kiedy filozof chce zjeść, próbuje uzyskać pałeczki od sąsiadów. Jeśli jest to niemożliwe, wysyła żądanie, aby je otrzymać.
-3. Jeśli filozof otzymuje żądnie o pałeczkę, ma dwie możliwości:
-  * zatrzymać ją, jeśli jest czysta
-  * przekazać sąsiadowi, jeśli jest brudna.
-Przed przekazaniem pałeczki, filozof musi ją wyczyścić.
-4. Gdy filozof kończy jeść, pałeczki stają się brudne.
+  1. Dla każdej pary ubiegającej się o dostęp do zasobów, tworzymy brudną pałeczkę i przekazujemy ją filozofowi o niższym numerze.
+  2. Kiedy filozof chce zjeść, próbuje uzyskać pałeczki od sąsiadów. Jeśli jest to niemożliwe, wysyła żądanie, aby je otrzymać.
+  3. Jeśli filozof otzymuje żądnie o pałeczkę, ma dwie możliwości:
+    * zatrzymać ją, jeśli jest czysta
+    * przekazać sąsiadowi, jeśli jest brudna.
+  Przed przekazaniem pałeczki, filozof musi ją wyczyścić.
+  4. Gdy filozof kończy jeść, pałeczki stają się brudne.
 
 ### Praktyczne uzasadnienie realizowanego problemu
 ???
