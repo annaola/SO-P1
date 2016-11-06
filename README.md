@@ -22,11 +22,10 @@ Filozofowie są ponumerowani od 1 do ustalonego n. Pałeczki mogą być *czyste*
   2. Kiedy filozof chce zjeść, próbuje uzyskać pałeczki od sąsiadów. Jeśli jest to niemożliwe, wysyła żądanie, aby je otrzymać.
   3. Jeśli filozof otzymuje żądnie o pałeczkę, ma dwie możliwości:
     * zatrzymać ją, jeśli jest czysta
-    * przekazać sąsiadowi, jeśli jest brudna.
-  Przed przekazaniem pałeczki, filozof musi ją wyczyścić.
+    * przekazać sąsiadowi, jeśli jest brudna. Przed przekazaniem pałeczki musi ją wyczyścić.
   4. Gdy filozof kończy jeść, pałeczki stają się brudne.
 
 ### Praktyczne uzasadnienie realizowanego problemu
-???
+Zbliżone problemy możemy uzyskać przy rezerwacji książek w systemie biblitecznym lub biletów do kina. Wystarczy, aby rezerwacja wymagała dostępu do dwóch zestawów danych, do których dostęp może mieć tylko jeden terminal rezerwacji na raz, np. kolejka zamówień książki czy lista miejsc wolnych i zarezerwowanych w sali oraz lista kolejnych rezerwacji w danym dniu.
 
 *Na podstawie: https://en.wikipedia.org/wiki/Dining_philosophers_problem*
