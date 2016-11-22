@@ -61,19 +61,20 @@ int main(){
 	plik<<"jsjdjdjdjd";
 
 
+
 	Philosopher platon;
-	platon.fork1="p1";
-	platon.fork2="p2";
+	platon.fork1="p1.temp";
+	platon.fork2="p2.temp";
 	platon.id="Platon";
 	platon.eating();
 
 	srand(time(NULL));
 	int x=0.0;
 	cout<<x;
-	/*while (true){
+	while (true){
 		x = rand()%1000000;
  		cout<<x<<str<<endl;
  		usleep(x);
- 	}*/
+ 	}
 	return 0;
 }
