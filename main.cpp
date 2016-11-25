@@ -92,7 +92,7 @@ class Philosopher
 
 	void *run(){
 		// tu bym umieściła coś podonego do Rysunku 6.13. ze Stallingsa
-		// połączenie eating i think
+		// połączenie eating i think 
 		return NULL;
 	}
 
@@ -101,7 +101,7 @@ public:
 	//to się chyba nazywa konstruktor :p
 
 	Philosopher() {
-		pthread_create(&thread, NULL, run, NULL); // coś krzyczy i nie wiem, co z tym zrobić
+		pthread_create(&thread, NULL, run, NULL); // coś krzyczy i nie wiem, co z tym zrobić / chyba nie możesz nazwać tak funkcji, c++ chyba tak nie działa
 	}
 
 	// a to jest prawdopodobnie destruktor
