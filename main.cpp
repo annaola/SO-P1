@@ -54,18 +54,7 @@ public:
 class Philosopher
 {
 	pthread_t thread;
-	int id;
 
-public:
-	//to się chyba nazywa konstruktor :p
-	Philosopher(int i) : id{i} {
-		pthread_create(&thread, NULL, eating, NULL)
-	}
-
-	// a to jest prawdopodobnie destruktor
-	~Philosopher(){
-		pthread_join(thread, NULL)
-	}
 
 	// nie wiem, czy to powinno być tu. W sumie nie wiem nic :D
 	void think(){
@@ -73,11 +62,11 @@ public:
 		int x = 0.0;
 		while (true){
 			x = rand()%1000000;
-	 		cout<<x<<str<<endl;
 	 		usleep(x);
 	 	}
 	}
 	
+	// to trzeba dopracować
 	void eating(){
 		fstream plik1;
 		fstream plik2;
@@ -101,7 +90,24 @@ public:
 		}
 	}
 
+	void *run(){
+		// tu bym umieściła coś podonego do Rysunku 6.13. ze Stallingsa
+		// połączenie eating i think
+		return NULL;
+	}
 
+public:
+	long id;
+	//to się chyba nazywa konstruktor :p
+
+	Philosopher() {
+		pthread_create(&thread, NULL, run, NULL); // coś krzyczy i nie wiem, co z tym zrobić
+	}
+
+	// a to jest prawdopodobnie destruktor
+	~Philosopher(){
+		pthread_join(thread, NULL);
+	}
 };
 
 int main(){
