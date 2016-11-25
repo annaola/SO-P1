@@ -1,0 +1,3 @@
+#include <functional>
+Pclass f
+std::thread s(mem_func<Pclass>(f, Pclass mem))
