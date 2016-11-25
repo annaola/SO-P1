@@ -55,7 +55,6 @@ class Philosopher
 {
 	pthread_t thread;
 
-
 	// nie wiem, czy to powinno być tu. W sumie nie wiem nic :D
 	void think(){
 		srand(time(NULL));
@@ -68,7 +67,7 @@ class Philosopher
 	
 	// to trzeba dopracować
 	void eating(){
-		fstream plik1;
+		/*fstream plik1;
 		fstream plik2;
 		plik1.open( fork1, ios::in | ios::out );
 		if( plik1.good() == true )
@@ -87,10 +86,11 @@ class Philosopher
 		}
 		else {			
 			cout << "Dostep do pliku zostal zabroniony!" << endl;
-		}
+		}*/
 	}
 
-	void *run(){
+	// a to w ogóle napisać
+	static void *run(void *arg){
 		// tu bym umieściła coś podonego do Rysunku 6.13. ze Stallingsa
 		// połączenie eating i think
 		return NULL;
@@ -98,10 +98,12 @@ class Philosopher
 
 public:
 	long id;
-	//to się chyba nazywa konstruktor :p
 
-	Philosopher() {
-		pthread_create(&thread, NULL, run, NULL); // coś krzyczy i nie wiem, co z tym zrobić
+	//to się chyba nazywa konstruktor :p
+	Philosopher() {}
+
+	Philosopher(long i) : id{i}{
+		pthread_create(&thread, NULL, run, (void*) id); // coś krzyczy i nie wiem, co z tym zrobić
 	}
 
 	// a to jest prawdopodobnie destruktor
@@ -140,6 +142,12 @@ int main(){
 
 	Philosopher philosophers[NPHIL];
 	fstream forks[NPHIL];
+
+	for (long i = 1; i <= NPHIL; i++)
+	{
+		Philosopher p = Philosopher(i);
+		philosophers[i] = p;
+	}
 
 	return 0;
 }
