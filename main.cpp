@@ -13,6 +13,7 @@
 using namespace std;
 
 #define NPHIL 5
+#define NFORK 7
 
 string IntToString (int a){
 	stringstream ss;
@@ -54,6 +55,7 @@ public:
 class Philosopher
 {
 	pthread_t thread;
+	bool forks[NFORK]
 
 	// nie wiem, czy to powinno być tu. W sumie nie wiem nic :D
 	void think(){
@@ -104,7 +106,8 @@ public:
 
 	Philosopher(long i) : id{i}{
 		pthread_create(&thread, NULL, run, (void*) id); // już nie krzyczy
-
+		// tu funkcja generująca losowe boole w tablicy forks
+	}
 	// a to jest prawdopodobnie destruktor
 	~Philosopher(){
 		pthread_join(thread, NULL);
