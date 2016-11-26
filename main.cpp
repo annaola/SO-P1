@@ -23,33 +23,8 @@ string IntToString (int a){
 
 
 
-/*class Philosopher{
-public:
-	string fork1, fork2, id;
 
-	void eating ( ){
-		fstream plik1;
-		fstream plik2;
-		plik1.open( fork1, ios::in | ios::out );
-		if( plik1.good() == true )
-		{
-   			plik2.open( fork2, ios::in | ios::out );
-   			if( plik2.good() == true ){
-   				plik1<<id;
-   				plik2<<id;
-   				plik1.close();
-   				plik2.close();
-   			}
-   			else{
-   				cout << "Dostep do pliku zostal zabroniony!" << endl;
-   			}
-    //tu operacje na pliku
-		}
-		else {			
-			cout << "Dostep do pliku zostal zabroniony!" << endl;
-		}
-	}
-};*/
+
 
 class Philosopher
 {
