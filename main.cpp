@@ -81,7 +81,6 @@ public:
 int main(){
 	srand(time(NULL));	
 
-
 	Philosopher philosophers[NPHIL];
 	fstream forks[NPHIL];
 
