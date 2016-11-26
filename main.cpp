@@ -116,7 +116,7 @@ public:
 			}
 		}
 
-		// operacja na zasobie
+		// operacja na zasobie w wątku
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
