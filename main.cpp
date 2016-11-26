@@ -22,15 +22,16 @@ string IntToString (int a){
 	return str;
 }
 
-
-
-
-
-
 class Philosopher
 {
 	pthread_t thread;
 	bool forks[NFORK]
+
+	void fillForks{
+		for (int i; i <= NFORK; i++){
+			
+		}
+	}
 
 	// nie wiem, czy to powinno być tu. W sumie nie wiem nic :D
 	void think(){
