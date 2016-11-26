@@ -22,6 +22,18 @@ string IntToString (int a){
 	return str;
 }
 
+struct Widelec{
+int id[1][1]; //pierwsze pole to pierwszy filozof, drugie pole to drugi filozof, pomiędzy którymi jest widelec
+int idFilozofa; //id aktualnie trzymającego świdelec filozofa
+bool stan; //0-czysty,1-brudny
+};
+
+
+
+
+
+
+
 class Philosopher
 {
 	pthread_t thread;
@@ -53,7 +65,7 @@ class Philosopher
 	}
 
 public:
-	int m;
+	int m;//liczba plików
 	int id;
 	int pliki[m];
 
