@@ -25,12 +25,12 @@ string IntToString (int a){
 class Philosopher
 {
 	pthread_t thread;
-	bool forks[NFORK]
+	bool forks[NFORK];
 
-	void fillForks{
+	void fillForks(){
 		for (int i; i <= NFORK; i++){
-			forks[i] = rand() % 2
-		}
+			forks[i] = rand() % 2;
+		};
 	}
 
 	// nie wiem, czy to powinno być tu. W sumie nie wiem nic :D
@@ -82,7 +82,7 @@ public:
 	Philosopher(long i) : id{i}{
 		//thread t1(&thread_1);
 		pthread_create(&thread, NULL, run, (void*) id); // już nie krzyczy
-		// tu funkcja generująca losowe boole w tablicy forks
+		fillForks();// tu funkcja generująca losowe boole w tablicy forks
 	}
 	// a to jest prawdopodobnie destruktor
 	~Philosopher(){
