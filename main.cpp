@@ -13,6 +13,7 @@
 using namespace std;
 
 #define NPHIL 5
+#define NFORK 7
 
 string IntToString (int a){
 	stringstream ss;
@@ -29,7 +30,7 @@ string IntToString (int a){
 class Philosopher
 {
 	pthread_t thread;
-
+	bool forks[NFORK]
 
 	// nie wiem, czy to powinno być tu. W sumie nie wiem nic :D
 	void think(){
@@ -43,7 +44,7 @@ class Philosopher
 	
 	// to trzeba dopracować
 	void eating(){
-		fstream plik1;
+		/*fstream plik1;
 		fstream plik2;
 		plik1.open( fork1, ios::in | ios::out );
 		if( plik1.good() == true )
@@ -62,10 +63,11 @@ class Philosopher
 		}
 		else {			
 			cout << "Dostep do pliku zostal zabroniony!" << endl;
-		}
+		}*/
 	}
 
-	void *run(){
+	// a to w ogóle napisać
+	static void *run(void *arg){
 		// tu bym umieściła coś podonego do Rysunku 6.13. ze Stallingsa
 		// połączenie eating i think 
 		return NULL;
@@ -73,12 +75,14 @@ class Philosopher
 
 public:
 	long id;
+
 	//to się chyba nazywa konstruktor :p
+	Philosopher() {}
 
-	Philosopher() {
-		pthread_create(&thread, NULL, run, NULL); // coś krzyczy i nie wiem, co z tym zrobić / chyba nie możesz nazwać tak funkcji, c++ chyba tak nie działa
+	Philosopher(long i) : id{i}{
+		pthread_create(&thread, NULL, run, (void*) id); // już nie krzyczy
+		// tu funkcja generująca losowe boole w tablicy forks
 	}
-
 	// a to jest prawdopodobnie destruktor
 	~Philosopher(){
 		pthread_join(thread, NULL);
@@ -154,6 +158,12 @@ int main(){
 
 	Philosopher philosophers[NPHIL];
 	fstream forks[NPHIL];
+
+	for (long i = 1; i <= NPHIL; i++)
+	{
+		Philosopher p = Philosopher(i);
+		philosophers[i] = p;
+	}
 
 	return 0;
 }
