@@ -29,13 +29,12 @@ class Philosopher
 
 	void fillForks{
 		for (int i; i <= NFORK; i++){
-			
+			forks[i] = rand() % 2
 		}
 	}
 
 	// nie wiem, czy to powinno być tu. W sumie nie wiem nic :D
 	void think(){
-		srand(time(NULL));
 		int x = 0.0;
 		while (true){
 			x = rand()%1000000;
@@ -92,7 +91,7 @@ public:
 };
 
 int main(){
-	
+	srand(time(NULL));	
 
 
 	Philosopher philosophers[NPHIL];
