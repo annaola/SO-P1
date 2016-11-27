@@ -215,8 +215,6 @@ int main(){
 			}
 		}
 	}
-Fork t=Fork(1,10,12);
-
 
 	thread philosophersThreads[NPHIL]; //tablica wątków
 
