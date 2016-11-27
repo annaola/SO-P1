@@ -14,11 +14,11 @@
 using namespace std;
 
 
-#define NPHIL 6
+#define NPHIL 2
 
 
 
-#define NSTOCK 3
+#define NSTOCK 1
 
 string IntToString (int a){
 	stringstream ss;
@@ -45,6 +45,7 @@ public:
 
 	void unlock(){
 		sem_post(&mutex);
+		
 	}
 
 	// Monitor
@@ -96,7 +97,7 @@ public:
 	void think(){
 		int x = 0;
 		
-		x = rand()%1000;
+		x = rand()%100;
  		usleep(x);
 	 	
 	}
@@ -236,7 +237,7 @@ int main(){
 
 					int lower=(j<k)?j:k;
 					
-					Fork t = Fork(k,lower,i);
+					Fork t = Fork(i*100+j*10+k,lower,i);
 					forks[i][j][k] = t;
 				}
 				//cout<<i<<" "<<j<<" "<<k<<endl;
