@@ -73,7 +73,7 @@ public:
 class Philosopher
 {
 	int id;
-	thread th;
+	//thread th;
 	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
 
 	void chooseStocks(){
@@ -174,9 +174,9 @@ public:
 	}
 };
 
-void eatForYourLive (*Philosopher platon){
+/*void eatForYourLive (*Philosopher platon){
 	(*platon).run();
-}
+}*/
 
 int main(){
 	srand(time(NULL));	
