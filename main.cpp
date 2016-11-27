@@ -152,6 +152,7 @@ public:
 
 	void run(){
 		for (int i = 0; i < NSTOCK; i++){
+			cout << zasoby[i] << endl;
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
@@ -189,7 +190,7 @@ int main(){
 	Fork forks[NSTOCK][NPHIL][NPHIL];
 	Philosopher philosophers[NPHIL];
 
-	
+	cout << "widelce i filozofowie stworzeni" << endl;
 	//tworzymy filozofów:
 
 	for (int i=0; i < NPHIL; i++)
@@ -199,6 +200,7 @@ int main(){
 		philosophers[i].chooseStocks();
 	}
 
+	cout << "filozofowie wiedzą, których widelców potrzebują" << endl;
 
 	//Tworzymy widelce
 
@@ -216,11 +218,18 @@ int main(){
 		}
 	}
 
+	cout << "przypisanie widelców" << endl;
+
 	thread philosophersThreads[NPHIL]; //tablica wątków
+
+	cout << "tablica wątków" << endl;
 
 	for (int i=0; i<NPHIL; i++){
 		philosophersThreads[i] = thread(&eatForYourLive, &(philosophers[i]));
 	}
+
+	cout << "wątki uruchomione" << endl;
+
     for (int i=0; i<NPHIL; i++){
         philosophersThreads[i].join();
     }
