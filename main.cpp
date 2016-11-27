@@ -35,17 +35,6 @@ class Fork
 public:
 	int id;
 
-	Fork() {}
-
-	Fork(int ind, int pId, int sId) : 
-		dirty{true},
-		philId{pId},
-		stockId{sId},
-		id{ind}
-		{
-			sem_init(&mutex, 1, 1);
-		}
-
 	void lock(){
 		sem_wait(&mutex);
 	}
@@ -67,6 +56,19 @@ public:
 	void setDirty(bool state){
 		dirty = state;
 	}
+
+	Fork() {}
+
+	Fork(int ind, int pId, int sId) : 
+		dirty{true},
+		philId{pId},
+		stockId{sId},
+		id{ind}
+		{
+			sem_init(&mutex, 1, 1);
+		}
+
+	
 };
 
 
@@ -74,37 +76,17 @@ class Philosopher
 {
 	int id;
 
-	
-
 public:
 	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
+	
+	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
 
 	void chooseStocks(){
 		for (int i=0; i < NSTOCK; i++){
 			zasoby[i] = rand() % 2;
-			cout<<"generowanie zasobów  "<<zasoby[i]<<endl;
+			cout<<id<<" generowanie zasobów  "<<zasoby[i]<<endl;
 		}
-		for (int i=0; i < NSTOCK; i++){
 
-			cout<<"generowanie zasobów2  "<<zasoby[i]<<endl;
-		}
-	}
-
-
-	
-	
-	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
-
-	Philosopher() {}
-	
-	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
-		for (int l = 1; l <= NSTOCK; l++){
-			for (int j = 1; j <= NPHIL; j++){
-				for (int k = 1; k <= NPHIL; k++){
-					forks[i][j][k] =&( fs[i][j][k]);
-				}
-			}
-		}
 	}
 
 	void think(){
@@ -116,9 +98,10 @@ public:
 	}
 
 	void eat(){
-		//chooseStocks();
+
 
 		for (int i = 0; i < NSTOCK; i++){
+			cout<<"próbuje sie dostac  "<< zasoby[i]<<endl;
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
@@ -132,7 +115,7 @@ public:
 		//zapis swojego id do pliku
 		fstream plik[NSTOCK];
 		for (int i=0;i<NSTOCK;i++){
-			cout<<"prubuje sie dostac  "<< zasoby[i]<<endl;
+			
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
@@ -184,6 +167,20 @@ public:
 			}
 		}
 	}
+
+
+	Philosopher() {}
+	
+	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
+		for (int l = 1; l <= NSTOCK; l++){
+			for (int j = 1; j <= NPHIL; j++){
+				for (int k = 1; k <= NPHIL; k++){
+					forks[i][j][k] =&( fs[i][j][k]);
+				}
+			}
+		}
+	}
+
 };
 
 void eatForYourLive (Philosopher* platon){
@@ -206,6 +203,11 @@ int main(){
 		Philosopher p = Philosopher(i,forks);
 		philosophers[i] = p;
 		philosophers[i].chooseStocks();
+		for (int j = 0; j < NSTOCK; ++j)
+		{
+			cout<<philosophers[i].zasoby[j];
+		}
+		cout<<endl;
 	}
 
 
@@ -214,7 +216,9 @@ int main(){
 	for (int i = 0; i < NSTOCK; i++){
 		for (int j = 0; j < NPHIL; j++){
 			for (int k = 0; k < NPHIL; k++){
+				//cout<<"widelce  "<< philosophers[j].zasoby[i]<<"  "<<philosophers[k].zasoby[i]<<endl;
 				if (philosophers[j].zasoby[i]==philosophers[k].zasoby[i]&&philosophers[j].zasoby[i]==1){
+
 					int lower=(j<k)?j:k;
 					
 					Fork t = Fork(k,lower,i);
@@ -229,8 +233,10 @@ int main(){
 	thread philosophersThreads[NPHIL]; //tablica wątków
 
 	for (int i=0; i<NPHIL; i++){
-		philosophersThreads[i] = thread(&eatForYourLive, &(philosophers[i]));
-		cout<<i<<endl;
+		Philosopher *p;
+		p=&(philosophers[i]);
+		philosophersThreads[i] = thread(&eatForYourLive, p);
+		cout<<"odpalamy jedzenie filozofa nr: "<<i<<endl;
 	}
 	/*
     for (int i=0; i<NPHIL; i++){
