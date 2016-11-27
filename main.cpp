@@ -24,10 +24,6 @@ string IntToString (int a){
 }
 
 
-struct Widelec{
-	int id[1][1]; //pierwsze pole to pierwszy filozof, drugie pole to drugi filozof, pomiędzy którymi jest widelec
-	int idFilozofa; //id aktualnie trzymającego świdelec filozofa
-	semafor stan; //0-czysty,1-brudny
 
 class Philosopher
 {
