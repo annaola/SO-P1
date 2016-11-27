@@ -51,7 +51,7 @@ using namespace std;
 
 #define NPHIL 8 //liczba filozofów
 #define NSTOCK 15 //liczba używanych plików
-#define N 10
+#define NREC 10 //liczba powtórzeń
 
 //funkcja pomocnicza zamieniająca inta na stringa, służy do tworzenia nazw plików
 string IntToString (int a){
@@ -235,19 +235,35 @@ int main(){
 	Fork forks[NSTOCK][NPHIL][NPHIL]; 	// tablica wszystkich widelców
 	Philosopher philosophers[NPHIL];	// tablica wszystkich filozofów
 
-	int iterator =0;
-
-	//Rozważamy kilka kolejek, w końcu różne programy mogą chcieć się dostać do różnych plików w różnym czasie
-	while(iterator<N){
-		cout<<"kolejka nr: "<<iterator+1<<endl;
-
-		//tworzymy filozofów:
+//tworzymy filozofów:
 		for (int i=0; i < NPHIL; i++)
 		{
 			Philosopher p = Philosopher(i,forks);
 			p.chooseStocks();
 			philosophers[i] = p;
 		}
+
+
+	int iterator =0;
+	int war=0;
+
+
+
+
+	//Rozważamy kilka kolejek, w końcu różne programy mogą chcieć się dostać do różnych plików w różnym czasie
+	while(iterator<NREC){
+		cout<<"kolejka nr: "<<iterator+1<<endl;
+
+
+		if(war){
+			//po pierwszej kolejce nie ma potrzeby tworzenia filozofów, po prostu mieszamy im zasoby:
+			for (int i=0; i < NPHIL; i++)
+			{
+				
+				philosophers[i].chooseStocks();
+			}
+		}
+		war=1;
 
 		//Tworzymy widelce
 		for (int i = 0; i < NSTOCK; i++){
