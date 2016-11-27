@@ -153,6 +153,7 @@ public:
 	}
 
 	void run(){
+		think();
 		for (int i = 0; i < NSTOCK; i++){
 			//cout << zasoby[i] << endl;
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
