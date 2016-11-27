@@ -84,24 +84,30 @@ public:
 	void chooseStocks(){
 		for (int i=0; i < NSTOCK; i++){
 			zasoby[i] = rand() % 2;
-			cout<<id<<" generowanie zasobów  "<<zasoby[i]<<endl;
+			//cout<<id<<" generowanie zasobów  "<<zasoby[i]<<endl;
 		}
 
 	}
 
 	void think(){
-		int x = 0.0;
-		while (true){
-			x = rand()%1000;
-	 		usleep(x);
-	 	}
+		int x = 0;
+		
+		x = rand()%1000;
+ 		usleep(x);
+	 	
 	}
+	void wyswietl_zasob(){
+		for (int j = 0; j < NSTOCK; ++j)
+		{
+			cout<<id<<" wyswietl_zasob(): "<<zasoby[j]<<endl;
+		}
 
+	}
 	void eat(){
 
 
 		for (int i = 0; i < NSTOCK; i++){
-			//cout<<"próbuje sie dostac  "<< zasoby[i]<<endl;
+			cout<<"próbuje sie dostac  "<< zasoby[i]<<endl;
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
@@ -119,7 +125,7 @@ public:
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
-				//cout<<"dostal sie "<<endl;
+				cout<<"dostal sie "<<endl;
 				plik[i].open( x,  ios::out );
 				if( plik[i].good() == true )
 				{
@@ -143,6 +149,7 @@ public:
 	}
 
 	void run(){
+		think();
 		for (int i = 0; i < NSTOCK; i++){
 			//cout << zasoby[i] << endl;
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
@@ -172,10 +179,10 @@ public:
 
 	Philosopher() {}
 	
-	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
-		for (int l = 1; l < NSTOCK; l++){
-			for (int j = 1; j < NPHIL; j++){
-				for (int k = 1; k <NPHIL; k++){
+	Philosopher(int id1, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{id1} {
+		for (int l = 0; l < NSTOCK; l++){
+			for (int j = 0; j < NPHIL; j++){
+				for (int k = 0; k <NPHIL; k++){
 					forks[l][j][k] =&( fs[l][j][k]);
 				}
 			}
@@ -206,13 +213,8 @@ int main(){
 	for (int i=0; i < NPHIL; i++)
 	{
 		Philosopher p = Philosopher(i,forks);
+		p.chooseStocks();
 		philosophers[i] = p;
-		philosophers[i].chooseStocks();
-		/*for (int j = 0; j < NSTOCK; ++j)
-		{
-			//cout<<philosophers[i].zasoby[j];
-		}*/
-		//cout<<endl;
 	}
 
 	cout << "filozofowie wiedzą, których widelców potrzebują" << endl;
@@ -245,16 +247,15 @@ int main(){
 
 	for (int i=0; i<NPHIL; i++){
 		cout<<"odpalamy jedzenie filozofa nr: "<<i<<endl;
-		Philosopher *p;
-		p= &(philosophers[i]);
-
+		Philosopher *p1;
+		p1= &(philosophers[i]);
+		/*
 		for (int j = 0; j < NSTOCK; ++j)
 		{
-			cout<<"przypisywanie: "<<p->zasoby[j]<<" "<<" "<<philosophers[i].zasoby[j]<<endl;
-		}
+			cout<<"przypisywanie: "<<p1->zasoby[j]<<" "<<" "<<philosophers[i].zasoby[j]<<endl;
+		}*/
 		
-
-		philosophersThreads[i] = thread(&eatForYourLive, p);
+		philosophersThreads[i] = thread(&eatForYourLive, p1);
 		
 	}
 
