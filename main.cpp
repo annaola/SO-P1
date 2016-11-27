@@ -13,7 +13,7 @@
 
 using namespace std;
 
-#define NPHIL 7
+#define NPHIL 5
 #define NSTOCK 3
 
 string IntToString (int a){
@@ -176,7 +176,7 @@ public:
 		for (int l = 1; l < NSTOCK; l++){
 			for (int j = 1; j < NPHIL; j++){
 				for (int k = 1; k <NPHIL; k++){
-					forks[i][j][k] =&( fs[i][j][k]);
+					forks[l][j][k] =&( fs[l][j][k]);
 				}
 			}
 		}
@@ -186,10 +186,10 @@ public:
 
 void eatForYourLive (Philosopher* platon){
 	platon->run();
-	for (int i = 0; i < NSTOCK; ++i)
+	/*for (int i = 0; i < NSTOCK; ++i)
 	{
 		//cout<<"może tu: "<<platon->zasoby[i];
-	}
+	}*/
 }
 
 
@@ -208,10 +208,10 @@ int main(){
 		Philosopher p = Philosopher(i,forks);
 		philosophers[i] = p;
 		philosophers[i].chooseStocks();
-		for (int j = 0; j < NSTOCK; ++j)
+		/*for (int j = 0; j < NSTOCK; ++j)
 		{
 			//cout<<philosophers[i].zasoby[j];
-		}
+		}*/
 		//cout<<endl;
 	}
 
