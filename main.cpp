@@ -13,7 +13,7 @@
 
 using namespace std;
 
-#define NPHIL 5
+#define NPHIL 7
 #define NSTOCK 3
 
 string IntToString (int a){
@@ -173,9 +173,9 @@ public:
 	Philosopher() {}
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
-		for (int l = 1; l <= NSTOCK; l++){
-			for (int j = 1; j <= NPHIL; j++){
-				for (int k = 1; k <= NPHIL; k++){
+		for (int l = 1; l < NSTOCK; l++){
+			for (int j = 1; j < NPHIL; j++){
+				for (int k = 1; k <NPHIL; k++){
 					forks[i][j][k] =&( fs[i][j][k]);
 				}
 			}
@@ -236,15 +236,6 @@ int main(){
 		}
 	}
 
-	for (int i=0; i < NPHIL; i++)
-	{
-		for (int j = 0; j < NSTOCK; ++j)
-		{
-			cout<<philosophers[i].zasoby[j];
-		}
-		cout<<endl;
-	}
-
 
 	cout << "przypisanie widelców" << endl;
 
@@ -269,11 +260,9 @@ int main(){
 
 	cout << "wątki uruchomione" << endl;
 
-	/*
     for (int i=0; i<NPHIL; i++){
         philosophersThreads[i].join();
     }
-*/
 
 
 
