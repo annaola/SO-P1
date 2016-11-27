@@ -14,8 +14,9 @@
 using namespace std;
 
 
-#define NPHIL 5
-#define NSTOCK 6
+
+#define NPHIL 8
+#define NSTOCK 5
 #define N 10
 
 string IntToString (int a){
@@ -93,7 +94,6 @@ public:
 	void chooseStocks(){
 		for (int i=0; i < NSTOCK; i++){
 			zasoby[i] = rand() % 2;
-			
 		}
 
 	}
@@ -105,30 +105,19 @@ public:
  		usleep(x);
 	 	
 	}
-	void wyswietl_zasob(){
-		for (int j = 0; j < NSTOCK; ++j)
-		{
-			
-		}
 
-	}
 	void eat(){
 
 
 		for (int i = 0; i < NSTOCK; i++){
 			
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
-				
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
-					
 					forks[i][id][j]->lock();
-					
 				}
 				for (int j = id + 1; j < NPHIL; j++){
-					
 					forks[i][j][id]->lock();
-					
 				}
 			}
 		}
@@ -139,7 +128,7 @@ public:
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
-				
+
 				plik[i].open( x,  ios::out |ios::app);
 				if( plik[i].good() == true )
 				{
@@ -153,14 +142,10 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
-					
 					forks[i][id][j]->unlock();
-					
 				}
 				for (int j = id + 1; j < NPHIL; j++){
-					
 					forks[i][j][id]->unlock();
-					
 				}
 			}
 		}
@@ -168,36 +153,29 @@ public:
 
 	void run(){
 		think();
-		
-		for (int i = 0; i < NSTOCK; i++){
 
-			
+		for (int i = 0; i < NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
-				
 				for (int j = 0; j < id; j++){
-					
 					forks[i][id][j]->getFork(id);
-					
 				}
 				for (int j = id + 1; j < NPHIL; j++){
-					
 					forks[i][j][id]->getFork(id);
-					
 				}
 			}
 		}
+
 		eat();
+
 		for (int i = 0; i < NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
 					forks[i][id][j]->setDirty(true);
-					
 				}
 				for (int j = id + 1; j < NPHIL; j++){
 					forks[i][j][id]->setDirty(true);
-					
 				}
 			}
 		}
@@ -215,14 +193,12 @@ public:
 			}
 		}
 	}
-
 };
 
 void eatForYourLive (Philosopher* platon){
 	for(int i = 0; i < N; i++){
 		platon->run();
 	}
-
 }
 
 
@@ -230,59 +206,43 @@ void eatForYourLive (Philosopher* platon){
 int main(){
 	srand(time(NULL));	
 
-	Fork forks[NSTOCK][NPHIL][NPHIL];
-	Philosopher philosophers[NPHIL];
+	Fork forks[NSTOCK][NPHIL][NPHIL]; 	// tablica wszystkich widelców
+	Philosopher philosophers[NPHIL];	// tablica filozofów
 
 	//tworzymy filozofów:
-
 	for (int i=0; i < NPHIL; i++)
 	{
 		Philosopher p = Philosopher(i,forks);
 		p.chooseStocks();
-		
 		philosophers[i] = p;
 	}
 
 	//Tworzymy widelce
-
 	for (int i = 0; i < NSTOCK; i++){
 		for (int j = 0; j < NPHIL; j++){
 			for (int k = 0; k < NPHIL; k++){
-				
 
 					int lower=(j<k)?j:k;
 					
+
 					Fork t = Fork(i*10000+j*100+k,lower,i);
 					forks[i][j][k] = t;
 				
-				
+
 			}
 		}
 	}
 
-
-	
-
-	thread philosophersThreads[NPHIL]; //tablica wątków
-
-	
+	thread philosophersThreads[NPHIL]; 	//tablica wątków
 
 	for (int i=0; i<NPHIL; i++){
-		
 		Philosopher *p1;
-		p1= &(philosophers[i]);
-		
-		
+		p1= &(philosophers[i]);	
 		philosophersThreads[i] = thread(&eatForYourLive, p1);	
 	}
-
-
 
     for (int i=0; i<NPHIL; i++){
         philosophersThreads[i].join();
     }
-
-
-
 	return 0;
 }
