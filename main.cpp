@@ -49,14 +49,11 @@ using namespace std;
 
 
 
-
 #define NPHIL 8 //liczba filozofów
 #define NSTOCK 15 //liczba używanych plików
 #define N 10
 
 //funkcja pomocnicza zamieniająca inta na stringa, służy do tworzenia nazw plików
-
-
 string IntToString (int a){
 	stringstream ss;
 	ss << a;
@@ -65,12 +62,11 @@ string IntToString (int a){
 }
 
 //klasa Fork będąca naszym "widelcem"
-
 class Fork
 {
-	bool dirty; //true-brudny, false-czysty
-	int philId; //id filozofa, który aktualnie dzierży widelec
-	sem_t mutex; //semafor
+	bool dirty; 	// true-brudny, false-czysty
+	int philId; 	// id filozofa, który aktualnie dzierży widelec
+	sem_t mutex; 	// semafor
 
 public:
 
@@ -80,14 +76,12 @@ public:
 
 	void unlock(){
 		sem_post(&mutex);
-		
 	}
 
 	// Monitor
 	void getFork(int holderID){
-		while (philId != holderID){			//dopóki filozof wołający nie dostanie widelca, 
-											//to sprawdza czy może nie jest on już brudny
-
+		while (philId != holderID){			// Dopóki filozof wołający nie dostanie widelca, 
+											// to sprawdza czy może nie jest on już brudny
 			if (dirty){
 				sem_wait(&mutex);
 				dirty = false;
@@ -117,31 +111,29 @@ class Philosopher
 	int id; //id filozofa
 
 public:
-	int zasoby[NSTOCK]; //0 oznacza, że filozof nie kożysta z pliku i, a 1, że kożysta
+	int zasoby[NSTOCK];	// 0 oznacza, że filozof nie korzysta z pliku i, a 1, że korzysta
 	
-	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
+	Fork *forks[NSTOCK][NPHIL][NPHIL];	// wskaźnik na tablicę forków
 
-	//funkcja zapełnaijąca losowo zasoby
+	//funkcja zapełniająca losowo zasoby
 	void chooseStocks(){
 		string s;
 		for (int i=0; i < NSTOCK; i++){
 			zasoby[i] = rand() % 2;
 		}
 	}
+	
 	//funkcja odpowiadająca za myślenie
 	void think(){
 		int x = 0;
 		
 		x = rand()%100;
  		usleep(x);
-	 	
 	}
-	//funkcja jedzenie: blokuję wszystkie widelce, wpisuję się do pliku, odblokowywuję widelce
+	
+	//funkcja jedzenie: blokuję wszystkie widelce, wpisuję się do pliku, odblokowuję widelce
 	void eat(){
-
-
 		for (int i = 0; i < NSTOCK; i++){
-			
 			if (zasoby[i] == 1){ 		//jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
@@ -152,6 +144,7 @@ public:
 				}
 			}
 		}
+
 		//zapis swojego id do pliku
 		fstream plik[NSTOCK];
 		for (int i=0;i<NSTOCK;i++){
@@ -182,6 +175,7 @@ public:
 			}
 		}
 	}
+
 	//funkcja run: najpierw myśl przez losowy czas, potem zdobądź widelce, zjedz, oddaj widelce
 	void run(){
 
@@ -227,11 +221,10 @@ public:
 		}
 	}
 };
+
 //funkcja wywołująca metodę run fiolzofa
 void eatForYourLive (Philosopher* platon){
-
 		platon->run();
-
 }
 
 
@@ -243,6 +236,7 @@ int main(){
 	Philosopher philosophers[NPHIL];	// tablica wszystkich filozofów
 
 	int iterator =0;
+
 	//Rozważamy kilka kolejek, w końcu różne programy mogą chcieć się dostać do różnych plików w różnym czasie
 	while(iterator<N){
 		cout<<"kolejka nr: "<<iterator+1<<endl;
@@ -259,12 +253,9 @@ int main(){
 		for (int i = 0; i < NSTOCK; i++){
 			for (int j = 0; j < NPHIL; j++){
 				for (int k = 0; k < NPHIL; k++){
-
 						int lower=(j<k)?j:k;
 						Fork t = Fork(lower); //widelec dzierży filozof o niższym id
 						forks[i][j][k] = t;
-					
-
 				}
 			}
 		}
