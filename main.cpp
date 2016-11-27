@@ -101,7 +101,7 @@ public:
 
 
 		for (int i = 0; i < NSTOCK; i++){
-			cout<<"próbuje sie dostac  "<< zasoby[i]<<endl;
+			//cout<<"próbuje sie dostac  "<< zasoby[i]<<endl;
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
@@ -119,7 +119,7 @@ public:
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
-				cout<<"dostal sie "<<endl;
+				//cout<<"dostal sie "<<endl;
 				plik[i].open( x,  ios::out );
 				if( plik[i].good() == true )
 				{
@@ -144,7 +144,7 @@ public:
 
 	void run(){
 		for (int i = 0; i < NSTOCK; i++){
-			cout << zasoby[i] << endl;
+			//cout << zasoby[i] << endl;
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
@@ -186,6 +186,10 @@ public:
 
 void eatForYourLive (Philosopher* platon){
 	platon->run();
+	for (int i = 0; i < NSTOCK; ++i)
+	{
+		//cout<<"może tu: "<<platon->zasoby[i];
+	}
 }
 
 
@@ -206,9 +210,9 @@ int main(){
 		philosophers[i].chooseStocks();
 		for (int j = 0; j < NSTOCK; ++j)
 		{
-			cout<<philosophers[i].zasoby[j];
+			//cout<<philosophers[i].zasoby[j];
 		}
-		cout<<endl;
+		//cout<<endl;
 	}
 
 	cout << "filozofowie wiedzą, których widelców potrzebują" << endl;
@@ -249,10 +253,18 @@ int main(){
 	cout << "tablica wątków" << endl;
 
 	for (int i=0; i<NPHIL; i++){
-		Philosopher *p;
-		p=&(philosophers[i]);
-		philosophersThreads[i] = thread(&eatForYourLive, p);
 		cout<<"odpalamy jedzenie filozofa nr: "<<i<<endl;
+		Philosopher *p;
+		p= &(philosophers[i]);
+
+		for (int j = 0; j < NSTOCK; ++j)
+		{
+			cout<<"przypisywanie: "<<p->zasoby[j]<<" "<<" "<<philosophers[i].zasoby[j]<<endl;
+		}
+		
+
+		philosophersThreads[i] = thread(&eatForYourLive, p);
+		
 	}
 
 	cout << "wątki uruchomione" << endl;
