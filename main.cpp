@@ -196,7 +196,7 @@ int main(){
 	{
 		Philosopher p = Philosopher(i,forks);
 		philosophers[i] = p;
-		philosophers[1].chooseStocks();
+		philosophers[i].chooseStocks();
 	}
 
 
@@ -213,7 +213,7 @@ int main(){
 			}
 		}
 	}
-	
+
 
 
 	return 0;
