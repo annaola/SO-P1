@@ -133,7 +133,7 @@ public:
 				string x;
 				x=IntToString(i)+".temp";
 				cout<<"dostal sie "<<endl;
-				plik[i].open( x,  ios::out );
+				plik[i].open( x,  ios::out |ios::app);
 				if( plik[i].good() == true )
 				{
 					plik[i]<<id<<endl;
