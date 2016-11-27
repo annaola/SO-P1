@@ -84,6 +84,8 @@ class Philosopher
 
 public:
 	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
+
+	Philosopher() {}
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
 		for (int l = 1; l <= NSTOCK; l++){
