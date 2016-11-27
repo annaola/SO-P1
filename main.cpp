@@ -13,7 +13,7 @@
 
 using namespace std;
 
-#define NPHIL 5
+#define NPHIL 6
 #define NSTOCK 3
 
 string IntToString (int a){
@@ -96,7 +96,13 @@ public:
 	 		usleep(x);
 	 	}
 	}
+	void wyswietl_zasob(){
+		for (int j = 0; j < NSTOCK; ++j)
+		{
+			cout<<id<<" wyswietl_zasob(): "<<zasoby[j]<<endl;
+		}
 
+	}
 	void eat(){
 
 
@@ -206,19 +212,17 @@ int main(){
 	for (int i=0; i < NPHIL; i++)
 	{
 		Philosopher p = Philosopher(i,forks);
+		p.chooseStocks();
 		philosophers[i] = p;
-		philosophers[i].chooseStocks();
-		for (int j = 0; j < NSTOCK; ++j)
-		{
-			//cout<<philosophers[i].zasoby[j];
-		}
-		//cout<<endl;
+		//philosophers[i].chooseStocks();
+		p.wyswietl_zasob();
+		philosophers[i].wyswietl_zasob();
 	}
 
 	cout << "filozofowie wiedzą, których widelców potrzebują" << endl;
 
 	//Tworzymy widelce
-
+/*
 	for (int i = 0; i < NSTOCK; i++){
 		for (int j = 0; j < NPHIL; j++){
 			for (int k = 0; k < NPHIL; k++){
@@ -235,25 +239,25 @@ int main(){
 			}
 		}
 	}
-
+*/
 	cout << "przypisanie widelców" << endl;
 
-	thread philosophersThreads[NPHIL]; //tablica wątków
+	//thread philosophersThreads[NPHIL]; //tablica wątków
 
 	cout << "tablica wątków" << endl;
 
 	for (int i=0; i<NPHIL; i++){
 		cout<<"odpalamy jedzenie filozofa nr: "<<i<<endl;
-		Philosopher *p;
-		p= &(philosophers[i]);
+		Philosopher *p1;
+		p1= &(philosophers[i]);
 
 		for (int j = 0; j < NSTOCK; ++j)
 		{
-			cout<<"przypisywanie: "<<p->zasoby[j]<<" "<<" "<<philosophers[i].zasoby[j]<<endl;
+			cout<<"przypisywanie: "<<p1->zasoby[j]<<" "<<" "<<philosophers[i].zasoby[j]<<endl;
 		}
-		
+		p1->wyswietl_zasob();
 
-		philosophersThreads[i] = thread(&eatForYourLive, p);
+		//philosophersThreads[i] = thread(&eatForYourLive, p);
 		
 	}
 
