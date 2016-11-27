@@ -24,10 +24,6 @@ string IntToString (int a){
 }
 
 
-
-class Philosopher
-{
-
 class Fork
 {
 	bool dirty; //będziemy wiedzieć, że true, gdy brudny 
