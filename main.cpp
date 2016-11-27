@@ -113,8 +113,15 @@ public:
 		for (int i=0;i<NSTOCK;i++){
 			if (zasoby[i]==1){
 				string x;
+				x=IntToString(i)+".temp";
+				plik[i].open( x, ios::in | ios::out );
+				if( plik[i].good() == true )
+				{
+					plik[i]<<id<<endln;
+				     plik.close();
+				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
+
 				
-				plik[i].open( "nazwa_pliku.txt", std::ios::in | std::ios::out );
 			}
 			
 		}
