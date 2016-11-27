@@ -43,7 +43,7 @@ public:
 		stockId{sId},
 		id{ind}
 		{
-			sem_init(mutex, 0, 1);
+			//sem_init(mutex, 0, 1);
 		}
 
 	void lock(){
@@ -78,7 +78,7 @@ class Philosopher
 
 public:
 	void chooseStocks(){
-		for (int i=1; i <= NSTOCK; i++){
+		for (int i=0; i < NSTOCK; i++){
 			zasoby[i] = rand() % 2;
 		}
 	}
@@ -111,20 +111,20 @@ public:
 	void eat(){
 		//chooseStocks();
 
-		for (int i = 1; i <= NSTOCK; i++){
+		for (int i = 0; i < NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
-				for (int j = 1; j < id; j++){
+				for (int j = 0; j < id; j++){
 					forks[i][id][j]->lock();
 				}
-				for (int j = id + 1; j <= NPHIL; j++){
+				for (int j = id + 1; j < NPHIL; j++){
 					forks[i][j][id]->lock();
 				}
 			}
 		}
 		//zapis swojego id do pliku
 		fstream plik[NSTOCK];
-		for (int i=1;i<=NSTOCK;i++){
+		for (int i=0;i<NSTOCK;i++){
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
@@ -137,13 +137,13 @@ public:
 			}
 		}
 
-		for (int i = 1; i <= NSTOCK; i++){
+		for (int i = 0; i < NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
-				for (int j = 1; j < id; j++){
+				for (int j = 0; j < id; j++){
 					forks[i][id][j]->unlock();
 				}
-				for (int j = id + 1; j <= NPHIL; j++){
+				for (int j = id + 1; j < NPHIL; j++){
 					forks[i][j][id]->unlock();
 				}
 			}
@@ -151,25 +151,25 @@ public:
 	}
 
 	void run(){
-		for (int i = 1; i <= NSTOCK; i++){
+		for (int i = 0; i < NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
-				for (int j = 1; j < id; j++){
+				for (int j = 0; j < id; j++){
 					forks[i][id][j]->getFork(id);
 				}
-				for (int j = id + 1; j <= NPHIL; j++){
+				for (int j = id + 1; j < NPHIL; j++){
 					forks[i][j][id]->getFork(id);
 				}
 			}
 		}
 		eat();
-		for (int i = 1; i <= NSTOCK; i++){
+		for (int i = 0; i < NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
-				for (int j = 1; j < id; j++){
+				for (int j = 0; j < id; j++){
 					forks[i][id][j]->setDirty(true);
 				}
-				for (int j = id + 1; j <= NPHIL; j++){
+				for (int j = id + 1; j < NPHIL; j++){
 					forks[i][j][id]->setDirty(true);
 				}
 			}
@@ -189,10 +189,10 @@ int main(){
 	Fork forks[NSTOCK][NPHIL][NPHIL];
 	Philosopher philosophers[NPHIL];
 
-
+	
 	//tworzymy filozofów:
 
-	for (int i=1; i <= NPHIL; i++)
+	for (int i=0; i < NPHIL; i++)
 	{
 		Philosopher p = Philosopher(i,forks);
 		philosophers[i] = p;
@@ -202,30 +202,32 @@ int main(){
 
 	//Tworzymy widelce
 
-	for (int i = 1; i <= NSTOCK; i++){
-		for (int j = 1; j <= NPHIL; j++){
-			for (int k = 1; k <= NPHIL; k++){
-				if (philosophers[j].zasoby[i]==philosophers[k].zasoby[k]){
+	for (int i = 0; i < NSTOCK; i++){
+		for (int j = 0; j < NPHIL; j++){
+			for (int k = 0; k < NPHIL; k++){
+				if (philosophers[j].zasoby[i]==philosophers[k].zasoby[i]&&philosophers[j].zasoby[i]==1){
 					int lower=(j<k)?j:k;
-					Fork t=Fork(i*100+k*10+j,lower,i);
-					forks[i][j][k]=t;
+					
+					//Fork t=Fork(k,lower,i);
+					//forks[i][j][k]=t;
 				}
+				
 			}
 		}
 	}
-
-
+Fork t=Fork(1,10,12);
+/*
 
 	thread philosophersThreads[NPHIL]; //tablica wątków
 
-	for (int i=1; i<=NPHIL; i++){
+	for (int i=0; i<NPHIL; i++){
 		philosophersThreads[i] = thread(&eatForYourLive, &(philosophers[i]));
 	}
-    for (int i=1; i<=NPHIL; i++){
+    for (int i=0; i<NPHIL; i++){
         philosophersThreads[i].join();
     }
 
-
+	*/
 
 
 
