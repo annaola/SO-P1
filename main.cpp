@@ -16,11 +16,20 @@ using namespace std;
 #define NPHIL 5
 #define NSTOCK 3
 
+string IntToString (int a){
+	stringstream ss;
+	ss << a;
+	string str = ss.str();
+	return str;
+}
+
+
 
 class Fork
 {
 	bool dirty; //będziemy wiedzieć, że true, gdy brudny ;)
 	int philId;
+	int stockId;
 	sem_t* mutex;
 
 public:
@@ -28,9 +37,10 @@ public:
 
 	Fork() {}
 
-	Fork(int ind, int pId) : 
+	Fork(int ind, int pId, int sId) : 
 		dirty{true},
 		philId{pId},
+		stockId{sId},
 		id{ind}
 		{
 			sem_init(mutex, 0, 1);
