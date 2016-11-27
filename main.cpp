@@ -51,7 +51,7 @@ using namespace std;
 
 
 #define NPHIL 8 //liczba filozofów
-#define NSTOCK 5 //liczba używanych plików
+#define NSTOCK 15 //liczba używanych plików
 #define N 10
 
 //funkcja pomocnicza zamieniająca inta na stringa, służy do tworzenia nazw plików
@@ -70,7 +70,7 @@ class Fork
 {
 	bool dirty; //true-brudny, false-czysty
 	int philId; //id filozofa, który aktualnie dzierży widelec
-	sem_t mutex;
+	sem_t mutex; //semafor
 
 public:
 
@@ -85,7 +85,9 @@ public:
 
 	// Monitor
 	void getFork(int holderID){
-		while (philId != holderID){
+		while (philId != holderID){			//dopóki filozof wołający nie dostanie widelca, 
+											//to sprawdza czy może nie jest on już brudny
+
 			if (dirty){
 				sem_wait(&mutex);
 				dirty = false;
@@ -112,20 +114,21 @@ public:
 
 class Philosopher
 {
-	int id;
+	int id; //id filozofa
 
 public:
-	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
+	int zasoby[NSTOCK]; //0 oznacza, że filozof nie kożysta z pliku i, a 1, że kożysta
 	
 	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
 
+	//funkcja zapełnaijąca losowo zasoby
 	void chooseStocks(){
 		string s;
 		for (int i=0; i < NSTOCK; i++){
 			zasoby[i] = rand() % 2;
 		}
 	}
-
+	//funkcja odpowiadająca za myślenie
 	void think(){
 		int x = 0;
 		
@@ -133,13 +136,13 @@ public:
  		usleep(x);
 	 	
 	}
-
+	//funkcja jedzenie: blokuję wszystkie widelce, wpisuję się do pliku, odblokowywuję widelce
 	void eat(){
 
 
 		for (int i = 0; i < NSTOCK; i++){
 			
-			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
+			if (zasoby[i] == 1){ 		//jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 0; j < id; j++){
 					forks[i][id][j]->lock();
@@ -179,8 +182,9 @@ public:
 			}
 		}
 	}
-
+	//funkcja run: najpierw myśl przez losowy czas, potem zdobądź widelce, zjedz, oddaj widelce
 	void run(){
+
 		think();
 
 		for (int i = 0; i < NSTOCK; i++){
@@ -223,11 +227,11 @@ public:
 		}
 	}
 };
-
+//funkcja wywołująca metodę run fiolzofa
 void eatForYourLive (Philosopher* platon){
-	for(int i = 0; i < N; i++){
+
 		platon->run();
-	}
+
 }
 
 
@@ -236,40 +240,47 @@ int main(){
 	srand(time(NULL));	
 
 	Fork forks[NSTOCK][NPHIL][NPHIL]; 	// tablica wszystkich widelców
-	Philosopher philosophers[NPHIL];	// tablica filozofów
+	Philosopher philosophers[NPHIL];	// tablica wszystkich filozofów
 
-	//tworzymy filozofów:
-	for (int i=0; i < NPHIL; i++)
-	{
-		Philosopher p = Philosopher(i,forks);
-		p.chooseStocks();
-		philosophers[i] = p;
-	}
+	int iterator =0;
+	//Rozważamy kilka kolejek, w końcu różne programy mogą chcieć się dostać do różnych plików w różnym czasie
+	while(iterator<N){
+		cout<<"kolejka nr: "<<iterator+1<<endl;
 
-	//Tworzymy widelce
-	for (int i = 0; i < NSTOCK; i++){
-		for (int j = 0; j < NPHIL; j++){
-			for (int k = 0; k < NPHIL; k++){
+		//tworzymy filozofów:
+		for (int i=0; i < NPHIL; i++)
+		{
+			Philosopher p = Philosopher(i,forks);
+			p.chooseStocks();
+			philosophers[i] = p;
+		}
 
-					int lower=(j<k)?j:k;
-					Fork t = Fork(lower);
-					forks[i][j][k] = t;
-				
+		//Tworzymy widelce
+		for (int i = 0; i < NSTOCK; i++){
+			for (int j = 0; j < NPHIL; j++){
+				for (int k = 0; k < NPHIL; k++){
 
+						int lower=(j<k)?j:k;
+						Fork t = Fork(lower); //widelec dzierży filozof o niższym id
+						forks[i][j][k] = t;
+					
+
+				}
 			}
 		}
+
+		thread philosophersThreads[NPHIL]; 	//tablica wątków
+
+		for (int i=0; i<NPHIL; i++){
+			Philosopher *p1;
+			p1= &(philosophers[i]);	
+			philosophersThreads[i] = thread(&eatForYourLive, p1);	//dodajemy do tablicy wątków funkcję odpalającą filozofa
+		}
+
+	    for (int i=0; i<NPHIL; i++){
+	        philosophersThreads[i].join();//uruchamiamy wątki
+	    }
+	    iterator++;
 	}
-
-	thread philosophersThreads[NPHIL]; 	//tablica wątków
-
-	for (int i=0; i<NPHIL; i++){
-		Philosopher *p1;
-		p1= &(philosophers[i]);	
-		philosophersThreads[i] = thread(&eatForYourLive, p1);	
-	}
-
-    for (int i=0; i<NPHIL; i++){
-        philosophersThreads[i].join();
-    }
 	return 0;
 }

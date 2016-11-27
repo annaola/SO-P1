@@ -4,4 +4,4 @@ main : Makefile main.cpp
 .PHONY: run
 
 run:
-	./main 
+	./main.out 
