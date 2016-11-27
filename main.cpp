@@ -114,7 +114,7 @@ public:
 		}
 		//zapis swojego id do pliku
 		fstream plik[NSTOCK];
-		for (int i=0;i<NSTOCK;i++){
+		for (int i=1;i<=NSTOCK;i++){
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
@@ -130,7 +130,6 @@ public:
 			
 		}
 		
-		// operacja na zasobie
 
 
 		for (int i = 1; i <= NSTOCK; i++){
@@ -173,19 +172,22 @@ public:
 	}
 };
 
-
+void eatForYourLive (*Philosopher platon){
+	(*platon).run();
+}
 
 int main(){
 	srand(time(NULL));	
 
-	/*Philosopher philosophers[NPHIL];
-	fstream forks[NPHIL];
 
-	for (long i = 1; i <= NPHIL; i++)
+	Fork froks[NPHIL*NPHIL*NSTOCK]
+	Philosopher philosophers[NPHIL];
+	
+	for (int i=1; i <= NPHIL; i++)
 	{
 		Philosopher p = Philosopher(i);
 		philosophers[i] = p;
 	}
-*/
+
 	return 0;
 }
