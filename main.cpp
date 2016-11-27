@@ -14,11 +14,13 @@
 using namespace std;
 
 
+
 #define NPHIL 2
 
 
 
 #define NSTOCK 1
+
 
 string IntToString (int a){
 	stringstream ss;
@@ -198,10 +200,10 @@ public:
 
 void eatForYourLive (Philosopher* platon){
 	platon->run();
-	for (int i = 0; i < NSTOCK; ++i)
+	/*for (int i = 0; i < NSTOCK; ++i)
 	{
 		//cout<<"może tu: "<<platon->zasoby[i];
-	}
+	}*/
 }
 
 
@@ -220,9 +222,6 @@ int main(){
 		Philosopher p = Philosopher(i,forks);
 		p.chooseStocks();
 		philosophers[i] = p;
-		//philosophers[i].chooseStocks();
-		//p.wyswietl_zasob();
-		//philosophers[i].wyswietl_zasob();
 	}
 
 	cout << "filozofowie wiedzą, których widelców potrzebują" << endl;
