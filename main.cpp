@@ -16,11 +16,20 @@ using namespace std;
 #define NPHIL 5
 #define NSTOCK 3
 
+string IntToString (int a){
+	stringstream ss;
+	ss << a;
+	string str = ss.str();
+	return str;
+}
+
+
 
 class Fork
 {
 	bool dirty; //będziemy wiedzieć, że true, gdy brudny ;)
 	int philId;
+	int stockId;
 	sem_t* mutex;
 
 public:
@@ -28,9 +37,10 @@ public:
 
 	Fork() {}
 
-	Fork(int ind, int pId) : 
+	Fork(int ind, int pId, int sId) : 
 		dirty{true},
 		philId{pId},
+		stockId{sId},
 		id{ind}
 		{
 			sem_init(mutex, 0, 1);
@@ -64,6 +74,7 @@ class Philosopher
 {
 	int id;
 
+	
 
 public:
 	void chooseStocks(){
@@ -76,6 +87,8 @@ public:
 	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
 	
 	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
+
+	Philosopher() {}
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
 		for (int l = 1; l <= NSTOCK; l++){
@@ -85,6 +98,14 @@ public:
 				}
 			}
 		}
+	}
+
+	void think(){
+		int x = 0.0;
+		while (true){
+			x = rand()%1000000;
+	 		usleep(x);
+	 	}
 	}
 
 	void eat(){
@@ -115,8 +136,6 @@ public:
 				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
 			}
 		}
-
-
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
@@ -157,20 +176,22 @@ public:
 		}
 	}
 };
-/*
-void eatForYourLive (*Philosopher platon){
+
+void eatForYourLive (Philosopher* platon){
 	(*platon).run();
 }
 
-*/
+
 
 int main(){
 	srand(time(NULL));	
 
-
 	Fork forks[NSTOCK][NPHIL][NPHIL];
 	Philosopher philosophers[NPHIL];
-	
+
+
+	//tworzymy filozofów:
+
 	for (int i=1; i <= NPHIL; i++)
 	{
 		Philosopher p = Philosopher(i,forks);
@@ -178,17 +199,22 @@ int main(){
 		philosophers[1].chooseStocks();
 	}
 
+
+	//Tworzymy widelce
+
 	for (int i = 1; i <= NSTOCK; i++){
 		for (int j = 1; j <= NPHIL; j++){
 			for (int k = 1; k <= NPHIL; k++){
 				if (philosophers[j].zasoby[i]==philosophers[k].zasoby[k]){
 					int lower=(j<k)?j:k;
-					Fork t=Fork(i*100+k*10+j,lower);
+					Fork t=Fork(i*100+k*10+j,lower,i);
 					forks[i][j][k]=t;
 				}
 			}
-			
 		}
 	}
+	
+
+
 	return 0;
 }
