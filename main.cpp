@@ -16,14 +16,6 @@ using namespace std;
 #define NPHIL 5
 #define NSTOCK 3
 
-string IntToString (int a){
-	stringstream ss;
-	ss << a;
-	string str = ss.str();
-	return str;
-}
-
-
 
 class Fork
 {
@@ -52,7 +44,7 @@ public:
 		sem_post(mutex);
 	}
 
-	// Monitor?
+	// Monitor
 	void getFork(int holderID){
 		while (philId != holderID){
 			if (dirty){
@@ -62,7 +54,6 @@ public:
 			}
 		}
 	}
-
 	void setDirty(bool state){
 		dirty = state;
 	}
@@ -88,14 +79,10 @@ public:
 		for (int l = 1; l <= NSTOCK; l++){
 			for (int j = 1; j <= NPHIL; j++){
 				for (int k = 1; k <= NPHIL; k++){
-
 					forks[i][j][k] =&( fs[i][j][k]);
-
-
 				}
 			}
 		}
-
 	}
 
 	void eat(){
@@ -124,14 +111,8 @@ public:
 					plik[i]<<id<<endl;
 				    plik[i].close();
 				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
-
-				
 			}
-			
 		}
-		
-		// operacja na zasobie
-
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
