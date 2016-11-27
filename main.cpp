@@ -63,16 +63,18 @@ public:
 class Philosopher
 {
 	int id;
-	thread th;
-	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
 
+
+public:
 	void chooseStocks(){
 		for (int i=1; i <= NSTOCK; i++){
 			zasoby[i] = rand() % 2;
-	};
-}
+		}
+	}
 
-public:
+
+	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
+	
 	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
@@ -86,7 +88,7 @@ public:
 	}
 
 	void eat(){
-		chooseStocks();
+		//chooseStocks();
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
@@ -155,10 +157,12 @@ public:
 		}
 	}
 };
-
+/*
 void eatForYourLive (*Philosopher platon){
 	(*platon).run();
 }
+
+*/
 
 int main(){
 	srand(time(NULL));	
@@ -171,7 +175,20 @@ int main(){
 	{
 		Philosopher p = Philosopher(i,forks);
 		philosophers[i] = p;
+		philosophers[1].chooseStocks();
 	}
 
+	for (int i = 1; i <= NSTOCK; i++){
+		for (int j = 1; j <= NPHIL; j++){
+			for (int k = 1; k <= NPHIL; k++){
+				if (philosophers[j].zasoby[i]==philosophers[k].zasoby[k]){
+					int lower=(j<k)?j:k;
+					Fork t=Fork(i*100+k*10+j,lower);
+					forks[i][j][k]=t;
+				}
+			}
+			
+		}
+	}
 	return 0;
 }
