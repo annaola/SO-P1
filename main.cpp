@@ -101,7 +101,7 @@ public:
 		}
 		//zapis swojego id do pliku
 		fstream plik[NSTOCK];
-		for (int i=0;i<NSTOCK;i++){
+		for (int i=1;i<=NSTOCK;i++){
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
@@ -113,6 +113,11 @@ public:
 				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
 			}
 		}
+<<<<<<< HEAD
+=======
+		
+
+>>>>>>> 75008cdd1d5a284d032f2aed5c3eb74288ea410e
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
@@ -154,19 +159,22 @@ public:
 	}
 };
 
-
+void eatForYourLive (*Philosopher platon){
+	(*platon).run();
+}
 
 int main(){
 	srand(time(NULL));	
 
-	/*Philosopher philosophers[NPHIL];
-	fstream forks[NPHIL];
 
-	for (long i = 1; i <= NPHIL; i++)
+	Fork froks[NPHIL*NPHIL*NSTOCK]
+	Philosopher philosophers[NPHIL];
+	
+	for (int i=1; i <= NPHIL; i++)
 	{
 		Philosopher p = Philosopher(i);
 		philosophers[i] = p;
 	}
-*/
+
 	return 0;
 }
