@@ -82,7 +82,7 @@ class Philosopher
 }
 
 public:
-	Fork *forks[NSTOCK][NPHIL][NPHIL];//to powinien być wskaźnik na tablicę forków, bo się nie będzie aktualizowąła chyba..
+	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
 		for (int l = 1; l <= NSTOCK; l++){
@@ -112,6 +112,7 @@ public:
 				}
 			}
 		}
+		//zapis swojego id do pliku
 		fstream plik[NSTOCK];
 		for (int i=0;i<NSTOCK;i++){
 			if (zasoby[i]==1){
@@ -121,7 +122,7 @@ public:
 				if( plik[i].good() == true )
 				{
 					plik[i]<<id<<endl;
-				     plik[i].close();
+				    plik[i].close();
 				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
 
 				
