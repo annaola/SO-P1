@@ -1,8 +1,7 @@
-all:
-	g++ -Wall -Werror main.cpp -o main.out -pthread -std=c++11
-
+main : Makefile main.cpp
+	g++ -std=c++11 -pthread -Wall -Werror main.cpp -o main
 
 .PHONY: run
 
 run:
-	./main.out 
+	./main 
