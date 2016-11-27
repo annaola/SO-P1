@@ -95,8 +95,7 @@ public:
 				}
 			}
 		}
-		thread t = thread(run);
-		th = t;
+
 	}
 
 	void eat(){
@@ -121,7 +120,7 @@ public:
 				plik[i].open( x, ios::in | ios::out );
 				if( plik[i].good() == true )
 				{
-					plik[i]<<id<<endln;
+					plik[i]<<id<<endl;
 				     plik.close();
 				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
 
