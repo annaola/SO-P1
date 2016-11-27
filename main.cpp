@@ -80,6 +80,7 @@ public:
 class Philosopher
 {
 	int id;
+	thread th;
 	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
 
 	void chooseStocks(){
@@ -92,13 +93,15 @@ public:
 	Fork forks[NSTOCK][NPHIL][NPHIL];
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
-		for (int i = 1; i <= NSTOCK; i++){
+		for (int l = 1; l <= NSTOCK; l++){
 			for (int j = 1; j <= NPHIL; j++){
 				for (int k = 1; k <= NPHIL; k++){
-					forks[i][j][k] = fs[i][j][k];
+					forks[l][j][k] = fs[l][j][k];
 				}
 			}
 		}
+		thread t = thread(run);
+		th = t;
 	}
 
 	void eat(){
@@ -116,7 +119,7 @@ public:
 			}
 		}
 
-		// operacja na zasobie w wątku
+		// operacja na zasobie
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
@@ -131,7 +134,7 @@ public:
 		}
 	}
 
-	void run(){
+	void *run(){
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
