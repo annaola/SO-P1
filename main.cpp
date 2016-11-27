@@ -28,11 +28,9 @@ string IntToString (int a){
 class Philosopher
 {
 
-// Znalazłam coś takiego w necie, co Ci wysłałam, przerobiłam nieco na to, co sam stworzyłeś
 class Fork
 {
-	bool dirty; //będziemy wiedzieć, że true, gdy brudny ;)
-	int philId;
+	bool dirty; //będziemy wiedzieć, że true, gdy brudny 
 	sem_t* mutex;
 
 public:
@@ -84,7 +82,7 @@ class Philosopher
 }
 
 public:
-	Fork forks[NSTOCK][NPHIL][NPHIL];
+	Fork forks[NSTOCK][NPHIL][NPHIL];//to powinien być wskaźnik na tablicę forków, bo się nie będzie aktualizowąła chyba..
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
 		for (int i = 1; i <= NSTOCK; i++){
@@ -110,8 +108,11 @@ public:
 				}
 			}
 		}
+		fstream plik[NSTOCK];
+		
+		
 
-		// operacja na zasobie w wątku
+
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
