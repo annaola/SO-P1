@@ -31,7 +31,7 @@ struct Widelec{
 
 class Philosopher
 {
-	
+
 // Znalazłam coś takiego w necie, co Ci wysłałam, przerobiłam nieco na to, co sam stworzyłeś
 class Fork
 {
@@ -157,59 +157,7 @@ public:
 	}
 };
 
-/*class Philosopher
-{
-	pthread_t thread;
-	bool forks[NFORK];
 
-	void fillForks(){
-		for (int i; i <= NFORK; i++){
-			forks[i] = rand() % 2;
-		};
-	}
-
->>>>>>> b479fe81c0e22b1d68dc2b314a05cc4a505ead75
-	void think(){
-		int x = 0;
-		while (true){
-			x = rand()%1000000;
-	 		usleep(x);
-	 	}
-	}
-	
-	
-public:
-	int m;//liczba plików
-	long id;
-	int pliki[m];
-<<<<<<< HEAD
-	void eat(Widelec* tab[]) {
-		for (int i=0; i<)
-	}
-=======
-
-
-	Philosopher() {}
-
-	Philosopher(long i) : id{i}{
-		//thread t1(&thread_1);
-		pthread_create(&thread, NULL, run, (void*) id); // już nie krzyczy
-		fillForks();// tu funkcja generująca losowe boole w tablicy forks
-	}
-	// a to jest prawdopodobnie destruktor
-	~Philosopher(){
-		//pthread_join(thread, NULL);
-	}
-
->>>>>>> b479fe81c0e22b1d68dc2b314a05cc4a505ead75
-
-	Philosopher(int IdOfHim, int LiczbaPlikow): m(LiczbaPlikow),id(IdOfHim){
-		for (int i=0;i<m;i++){
-			plik[i]=rand()%2;
-		}
-	}
-};
-*/
 
 int main(){
 	srand(time(NULL));	
