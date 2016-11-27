@@ -68,11 +68,9 @@ class Fork
 {
 	bool dirty; //true-brudny, false-czysty
 	int philId; //id filozofa, który aktualnie dzierży widelec
-	int stockId;
 	sem_t mutex;
 
 public:
-	int id;
 
 	void lock(){
 		sem_wait(&mutex);
@@ -105,11 +103,9 @@ public:
 
 	Fork() {}
 
-	Fork(int ind, int pId, int sId) : 
+	Fork(int pId) : 
 		dirty{true},
-		philId{pId},
-		stockId{sId},
-		id{ind}
+		philId{pId}
 		{
 			sem_init(&mutex, 0, 1);
 		}
@@ -259,9 +255,7 @@ int main(){
 			for (int k = 0; k < NPHIL; k++){
 
 					int lower=(j<k)?j:k;
-					
-
-					Fork t = Fork(i*10000+j*100+k,lower,i);
+					Fork t = Fork(lower);
 					forks[i][j][k] = t;
 				
 
