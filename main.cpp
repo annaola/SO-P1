@@ -24,20 +24,13 @@ string IntToString (int a){
 }
 
 
-/*truct Widelec{
-int id[1][1]; //pierwsze pole to pierwszy filozof, drugie pole to drugi filozof, pomiędzy którymi jest widelec
-int idFilozofa; //id aktualnie trzymającego świdelec filozofa
-bool stan; //0-czysty,1-brudny
-};
-*/
 
+class Philosopher
+{
 
-
-// Znalazłam coś takiego w necie, co Ci wysłałam, przerobiłam nieco na to, co sam stworzyłeś
 class Fork
 {
-	bool dirty; //będziemy wiedzieć, że true, gdy brudny ;)
-	int philId;
+	bool dirty; //będziemy wiedzieć, że true, gdy brudny 
 	sem_t* mutex;
 
 public:
@@ -90,7 +83,7 @@ class Philosopher
 }
 
 public:
-	Fork forks[NSTOCK][NPHIL][NPHIL];
+	Fork forks[NSTOCK][NPHIL][NPHIL];//to powinien być wskaźnik na tablicę forków, bo się nie będzie aktualizowąła chyba..
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
 		for (int l = 1; l <= NSTOCK; l++){
@@ -118,8 +111,11 @@ public:
 				}
 			}
 		}
-
+		fstream plik[NSTOCK];
+		
+		
 		// operacja na zasobie
+
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
@@ -161,62 +157,7 @@ public:
 	}
 };
 
-/*class Philosopher
-{
-	pthread_t thread;
-	bool forks[NFORK];
 
-	void fillForks(){
-		for (int i; i <= NFORK; i++){
-			forks[i] = rand() % 2;
-		};
-	}
-
-	void think(){
-		int x = 0.0;
-		while (true){
-			x = rand()%1000000;
-	 		usleep(x);
-	 	}
-	}
-	
-	// to trzeba dopracować
-	void eating(){
-
-	}
-
-	// a to w ogóle napisać
-	static void *run(void *arg){
-
-		return NULL;
-	}
-
-public:
-	int m;//liczba plików
-	long id;
-	int pliki[m];
-
-
-	Philosopher() {}
-
-	Philosopher(long i) : id{i}{
-		//thread t1(&thread_1);
-		pthread_create(&thread, NULL, run, (void*) id); // już nie krzyczy
-		fillForks();// tu funkcja generująca losowe boole w tablicy forks
-	}
-	// a to jest prawdopodobnie destruktor
-	~Philosopher(){
-		//pthread_join(thread, NULL);
-	}
-
-
-	Philosopher(int IdOfHim, int LiczbaPlikow): m(LiczbaPlikow),id(IdOfHim){
-		for (int i=0;i<m;i++){
-			plik[i]=rand()%2;
-		}
-	}
-};
-*/
 
 int main(){
 	srand(time(NULL));	
