@@ -169,12 +169,12 @@ void eatForYourLive (*Philosopher platon){
 int main(){
 	srand(time(NULL));	
 
-	Fork froks[NPHIL][NPHIL][NSTOCK];
+	Fork forks[NSTOCK][NPHIL][NPHIL];
 	Philosopher philosophers[NPHIL];
 	
 	for (int i=1; i <= NPHIL; i++)
 	{
-		Philosopher p = Philosopher(i);
+		Philosopher p = Philosopher(i,forks);
 		philosophers[i] = p;
 	}
 
