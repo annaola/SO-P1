@@ -51,7 +51,8 @@ using namespace std;
 
 #define NPHIL 8 //liczba filozofów
 #define NSTOCK 15 //liczba używanych plików
-#define NREC 10 //liczba powtórzeń
+#define NREC 10 //liczba zmian plików
+#define N 5 //liczba zmian myślenie-jedzenie
 
 //funkcja pomocnicza zamieniająca inta na stringa, służy do tworzenia nazw plików
 string IntToString (int a){
@@ -224,7 +225,13 @@ public:
 
 //funkcja wywołująca metodę run fiolzofa
 void eatForYourLive (Philosopher* platon){
+		//na przemian je i myśli i kożysta z tych samych plików
+	for (int i = 0; i < N; ++i)
+
+	{
 		platon->run();
+	}
+		
 }
 
 
