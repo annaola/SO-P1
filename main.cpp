@@ -121,7 +121,7 @@ public:
 				if( plik[i].good() == true )
 				{
 					plik[i]<<id<<endl;
-				     plik.close();
+				     plik[i].close();
 				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
 
 				
@@ -145,7 +145,7 @@ public:
 		}
 	}
 
-	void *run(){
+	void run(){
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
