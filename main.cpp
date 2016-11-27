@@ -115,10 +115,10 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 1; j < id; j++){
-					(*(forks[i][id][j])).lock();
+					forks[i][id][j]->lock();
 				}
 				for (int j = id + 1; j <= NPHIL; j++){
-					(*(forks[i][j][id])).lock();
+					forks[i][j][id]->lock();
 				}
 			}
 		}
@@ -141,10 +141,10 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 1; j < id; j++){
-					(*(forks[i][id][j])).unlock();
+					forks[i][id][j]->unlock();
 				}
 				for (int j = id + 1; j <= NPHIL; j++){
-					(*(forks[i][j][id])).unlock();
+					forks[i][j][id]->unlock();
 				}
 			}
 		}
@@ -155,10 +155,10 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 1; j < id; j++){
-					(*(forks[i][id][j])).getFork(id);
+					forks[i][id][j]->getFork(id);
 				}
 				for (int j = id + 1; j <= NPHIL; j++){
-					(*(forks[i][j][id])).getFork(id);
+					forks[i][j][id]->getFork(id);
 				}
 			}
 		}
@@ -167,10 +167,10 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 1; j < id; j++){
-					(*(forks[i][id][j])).setDirty(true);
+					forks[i][id][j]->setDirty(true);
 				}
 				for (int j = id + 1; j <= NPHIL; j++){
-					(*(forks[i][j][id])).setDirty(true);
+					forks[i][j][id]->setDirty(true);
 				}
 			}
 		}
@@ -178,7 +178,7 @@ public:
 };
 
 void eatForYourLive (Philosopher* platon){
-	(*platon).run();
+	platon->run();
 }
 
 
@@ -213,6 +213,19 @@ int main(){
 			}
 		}
 	}
+
+
+
+	thread philosophersThreads[NPHIL]; //tablica wątków
+
+	for (int i=1; i<=NPHIL; i++){
+		philosophersThreads[i] = thread(&eatForYourLive, &(philosophers[i]));
+	}
+    for (int i=1; i<=NPHIL; i++){
+        philosophersThreads[i].join();
+    }
+
+
 
 
 
