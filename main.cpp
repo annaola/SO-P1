@@ -30,7 +30,7 @@ class Fork
 	bool dirty; //będziemy wiedzieć, że true, gdy brudny ;)
 	int philId;
 	int stockId;
-	sem_t* mutex;
+	sem_t mutex;
 
 public:
 	int id;
@@ -43,22 +43,22 @@ public:
 		stockId{sId},
 		id{ind}
 		{
-			//sem_init(mutex, 0, 1);
+			sem_init(&mutex, 1, 1);
 		}
 
 	void lock(){
-		sem_wait(mutex);
+		sem_wait(&mutex);
 	}
 
 	void unlock(){
-		sem_post(mutex);
+		sem_post(&mutex);
 	}
 
 	// Monitor
 	void getFork(int holderID){
 		while (philId != holderID){
 			if (dirty){
-				sem_wait(mutex);
+				sem_wait(&mutex);
 				dirty = false;
 				philId = holderID;
 			}
@@ -208,15 +208,15 @@ int main(){
 				if (philosophers[j].zasoby[i]==philosophers[k].zasoby[i]&&philosophers[j].zasoby[i]==1){
 					int lower=(j<k)?j:k;
 					
-					//Fork t=Fork(k,lower,i);
-					//forks[i][j][k]=t;
+					Fork t = Fork(k,lower,i);
+					forks[i][j][k] = t;
 				}
 				
 			}
 		}
 	}
 Fork t=Fork(1,10,12);
-/*
+
 
 	thread philosophersThreads[NPHIL]; //tablica wątków
 
@@ -227,7 +227,6 @@ Fork t=Fork(1,10,12);
         philosophersThreads[i].join();
     }
 
-	*/
 
 
 
