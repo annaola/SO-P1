@@ -128,7 +128,7 @@ public:
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
-				plik[i].open( x, ios::in | ios::out );
+				plik[i].open( x,  ios::out );
 				if( plik[i].good() == true )
 				{
 					plik[i]<<id<<endl;
