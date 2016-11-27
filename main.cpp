@@ -85,6 +85,14 @@ public:
 		}
 	}
 
+	void think(){
+		int x = 0.0;
+		while (true){
+			x = rand()%1000000;
+	 		usleep(x);
+	 	}
+	}
+
 	void eat(){
 		chooseStocks();
 
@@ -161,7 +169,7 @@ void eatForYourLive (*Philosopher platon){
 int main(){
 	srand(time(NULL));	
 
-	Fork froks[NPHIL*NPHIL*NSTOCK]
+	Fork froks[NPHIL][NPHIL][NSTOCK];
 	Philosopher philosophers[NPHIL];
 	
 	for (int i=1; i <= NPHIL; i++)
