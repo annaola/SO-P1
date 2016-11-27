@@ -113,11 +113,8 @@ public:
 				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
 			}
 		}
-<<<<<<< HEAD
-=======
-		
 
->>>>>>> 75008cdd1d5a284d032f2aed5c3eb74288ea410e
+
 
 		for (int i = 1; i <= NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
@@ -167,12 +164,12 @@ int main(){
 	srand(time(NULL));	
 
 
-	Fork froks[NPHIL*NPHIL*NSTOCK]
+	Fork forks[NSTOCK][NPHIL][NPHIL];
 	Philosopher philosophers[NPHIL];
 	
 	for (int i=1; i <= NPHIL; i++)
 	{
-		Philosopher p = Philosopher(i);
+		Philosopher p = Philosopher(i,forks);
 		philosophers[i] = p;
 	}
 
