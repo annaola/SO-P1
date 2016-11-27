@@ -13,6 +13,7 @@
 
 using namespace std;
 
+
 #define NPHIL 5
 #define NSTOCK 3
 #define N 10
@@ -42,6 +43,7 @@ public:
 
 	void unlock(){
 		sem_post(&mutex);
+		
 	}
 
 	// Monitor
@@ -99,7 +101,7 @@ public:
 	void think(){
 		int x = 0;
 		
-		x = rand()%1000;
+		x = rand()%100;
  		usleep(x);
 	 	
 	}
@@ -138,7 +140,7 @@ public:
 				string x;
 				x=IntToString(i)+".temp";
 				cout<<"dostal sie "<<endl;
-				plik[i].open( x,  ios_base::app );
+				plik[i].open( x,  ios::out |ios::app);
 				if( plik[i].good() == true )
 				{
 					plik[i]<<id<<endl;
@@ -261,7 +263,7 @@ int main(){
 
 					int lower=(j<k)?j:k;
 					
-					Fork t = Fork(k,lower,i);
+					Fork t = Fork(i*100+j*10+k,lower,i);
 					forks[i][j][k] = t;
 				
 				//cout<<i<<" "<<j<<" "<<k<<endl;
