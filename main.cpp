@@ -25,12 +25,12 @@ string IntToString (int a){
 
 
 
-class Philosopher
-{
+
 
 class Fork
 {
-	bool dirty; //będziemy wiedzieć, że true, gdy brudny 
+	bool dirty; //będziemy wiedzieć, że true, gdy brudny ;)
+	int philId;
 	sem_t* mutex;
 
 public:
@@ -70,6 +70,7 @@ public:
 	}
 };
 
+
 class Philosopher
 {
 	int id;
@@ -82,13 +83,13 @@ class Philosopher
 }
 
 public:
-	Fork forks[NSTOCK][NPHIL][NPHIL];//to powinien być wskaźnik na tablicę forków, bo się nie będzie aktualizowąła chyba..
+	Fork *forks[NSTOCK][NPHIL][NPHIL];//to powinien być wskaźnik na tablicę forków, bo się nie będzie aktualizowąła chyba..
 	
 	Philosopher(int i, Fork fs[NSTOCK][NPHIL][NPHIL]) : id{i} {
 		for (int i = 1; i <= NSTOCK; i++){
 			for (int j = 1; j <= NPHIL; j++){
 				for (int k = 1; k <= NPHIL; k++){
-					forks[i][j][k] = fs[i][j][k];
+					forks[i][j][k] =&( fs[i][j][k]);
 				}
 			}
 		}
@@ -101,15 +102,22 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 1; j < id; j++){
-					forks[i][id][j].lock();
+					(*(forks[i][id][j])).lock();
 				}
 				for (int j = id + 1; j <= NPHIL; j++){
-					forks[i][j][id].lock();
+					(*(forks[i][j][id])).lock();
 				}
 			}
 		}
 		fstream plik[NSTOCK];
-		
+		for (int i=0;i<NSTOCK;i++){
+			if (zasoby[i]==1){
+				string x;
+				
+				plik[i].open( "nazwa_pliku.txt", std::ios::in | std::ios::out );
+			}
+			
+		}
 		
 
 
@@ -118,10 +126,10 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 1; j < id; j++){
-					forks[i][id][j].unlock();
+					(*(forks[i][id][j])).unlock();
 				}
 				for (int j = id + 1; j <= NPHIL; j++){
-					forks[i][j][id].unlock();
+					(*(forks[i][j][id])).unlock();
 				}
 			}
 		}
@@ -132,10 +140,10 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 1; j < id; j++){
-					forks[i][id][j].getFork(id);
+					(*(forks[i][id][j])).getFork(id);
 				}
 				for (int j = id + 1; j <= NPHIL; j++){
-					forks[i][j][id].getFork(id);
+					(*(forks[i][j][id])).getFork(id);
 				}
 			}
 		}
@@ -144,10 +152,10 @@ public:
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
 				for (int j = 1; j < id; j++){
-					forks[i][id][j].setDirty(true);
+					(*(forks[i][id][j])).setDirty(true);
 				}
 				for (int j = id + 1; j <= NPHIL; j++){
-					forks[i][j][id].setDirty(true);
+					(*(forks[i][j][id])).setDirty(true);
 				}
 			}
 		}
