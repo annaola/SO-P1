@@ -232,6 +232,16 @@ int main(){
 		}
 	}
 
+	for (int i=0; i < NPHIL; i++)
+	{
+		for (int j = 0; j < NSTOCK; ++j)
+		{
+			cout<<philosophers[i].zasoby[j];
+		}
+		cout<<endl;
+	}
+
+
 	cout << "przypisanie widelców" << endl;
 
 	thread philosophersThreads[NPHIL]; //tablica wątków
