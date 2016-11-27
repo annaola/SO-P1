@@ -252,7 +252,7 @@ int main(){
 
 					int lower=(j<k)?j:k;
 					
-					Fork t = Fork(i*100+j*10+k,lower,i);
+					Fork t = Fork(i*10000+j*100+k,lower,i);
 					forks[i][j][k] = t;
 				
 				
