@@ -1,3 +1,37 @@
+/*
+Zespół: Anna Biadasiewicz i Michał Martusewicz
+
+zadanie polega na rozszerzeniu klasycznego problemu ucztujących filozofów na n filozofów i k zasobów.
+Stosujemy algorytm Chandy/Misra (za: Wikipedia):
+
+
+1. Dla każdej pary filozofów ubiegającej się o dostęp do zasobu stwórz widelec 
+	i wręcz go filozofowi z niższym identyfikatorem (ID). 
+	Każdy widelec może być brudny lub czysty. 
+	Na początku wszystkie widelce są brudne.
+
+2. Gdy filozof chce użyć zbioru zasobów (tj. jeść), musi uzyskać widelec 
+	od konkurujących z nim sąsiadów. Dla każdego widelca, który nie jest w jego posiadaniu, 
+	wysyła żądanie w celu jego uzyskania.
+
+3. Gdy filozof z widelcem otrzymuje żądanie, zatrzymuje widelec, 
+	jeśli jest on czysty, jeśli natomiast jest brudny, to go przekazuje, uprzednio myjąc.
+
+4. Gdy filozof kończy jedzenie, wszystkie jego widelce stają się brudne. 
+	Jeśli podczas jedzenia przyszło żądanie od innego filozofa, wtedy po skończeniu jedzenia, 
+	przekazywany jest czysty widelec.
+
+
+Dla każdego filozofa losujemy, jakie pliki będzie otwierał.
+"Jedzenie" polega na zapisaniu swojego ID do wszystkich plików, które dany filozof otwiera.
+
+*/
+
+
+
+
+
+
 #include <iostream>
 #include <thread>
 #include <fstream>
@@ -15,9 +49,11 @@ using namespace std;
 
 
 
-#define NPHIL 8
-#define NSTOCK 5
+#define NPHIL 8 //liczba filozofów
+#define NSTOCK 5 //liczba używanych plików
 #define N 10
+
+//funkcja pomocnicza zamieniająca inta na stringa, służy do tworzenia nazw plików
 
 string IntToString (int a){
 	stringstream ss;
@@ -26,12 +62,12 @@ string IntToString (int a){
 	return str;
 }
 
-
+//klasa Fork będąca naszym "widelcem"
 
 class Fork
 {
-	bool dirty; //będziemy wiedzieć, że true, gdy brudny ;)
-	int philId;
+	bool dirty; //true-brudny, false-czysty
+	int philId; //id filozofa, który aktualnie dzierży widelec
 	int stockId;
 	sem_t mutex;
 
