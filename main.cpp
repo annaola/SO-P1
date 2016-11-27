@@ -94,11 +94,11 @@ public:
 	}
 
 	void think(){
-		int x = 0.0;
-		while (true){
-			x = rand()%1000;
-	 		usleep(x);
-	 	}
+		int x = 0;
+		
+		x = rand()%1000;
+ 		usleep(x);
+	 	
 	}
 	void wyswietl_zasob(){
 		for (int j = 0; j < NSTOCK; ++j)
