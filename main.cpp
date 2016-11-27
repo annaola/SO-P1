@@ -14,6 +14,7 @@
 using namespace std;
 
 
+
 #define NPHIL 8
 #define NSTOCK 5
 #define N 10
@@ -127,12 +128,13 @@ public:
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
+
 				plik[i].open( x,  ios::out |ios::app);
 				if( plik[i].good() == true )
 				{
 					plik[i]<<id<<endl;
 				    plik[i].close();
-				} else cout << "Dostep do pliku zostal zabroniony!" << endl;
+				} else cout <<"brak dostępu";
 			}
 		}
 
@@ -151,6 +153,7 @@ public:
 
 	void run(){
 		think();
+
 		for (int i = 0; i < NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
@@ -162,7 +165,9 @@ public:
 				}
 			}
 		}
+
 		eat();
+
 		for (int i = 0; i < NSTOCK; i++){
 			if (zasoby[i] == 1){ //jeśli filozof chce dostępu do danego zasobu
 				// przeglądamy tylko połowę tablicy
@@ -216,6 +221,7 @@ int main(){
 	for (int i = 0; i < NSTOCK; i++){
 		for (int j = 0; j < NPHIL; j++){
 			for (int k = 0; k < NPHIL; k++){
+
 					int lower=(j<k)?j:k;
 					
 					Fork t = Fork(i*100+j*10+k,lower,i);
