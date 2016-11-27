@@ -77,14 +77,21 @@ class Philosopher
 	
 
 public:
+	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
+
 	void chooseStocks(){
 		for (int i=0; i < NSTOCK; i++){
 			zasoby[i] = rand() % 2;
+			cout<<"generowanie zasobów  "<<zasoby[i]<<endl;
+		}
+		for (int i=0; i < NSTOCK; i++){
+
+			cout<<"generowanie zasobów2  "<<zasoby[i]<<endl;
 		}
 	}
 
 
-	int zasoby[NSTOCK]; //będziemy ją wypełniać przed "jedzeniem", żeby losowo wybierać zasoby, do których chcemy się dobrać
+	
 	
 	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
 
@@ -103,7 +110,7 @@ public:
 	void think(){
 		int x = 0.0;
 		while (true){
-			x = rand()%1000000;
+			x = rand()%1000;
 	 		usleep(x);
 	 	}
 	}
@@ -125,9 +132,11 @@ public:
 		//zapis swojego id do pliku
 		fstream plik[NSTOCK];
 		for (int i=0;i<NSTOCK;i++){
+			cout<<"prubuje sie dostac  "<< zasoby[i]<<endl;
 			if (zasoby[i]==1){
 				string x;
 				x=IntToString(i)+".temp";
+				cout<<"dostal sie "<<endl;
 				plik[i].open( x,  ios::out );
 				if( plik[i].good() == true )
 				{
@@ -213,6 +222,7 @@ int main(){
 					Fork t = Fork(k,lower,i);
 					forks[i][j][k] = t;
 				}
+				//cout<<i<<" "<<j<<" "<<k<<endl;
 				
 			}
 		}
@@ -226,14 +236,16 @@ int main(){
 
 	for (int i=0; i<NPHIL; i++){
 		philosophersThreads[i] = thread(&eatForYourLive, &(philosophers[i]));
+		cout<<i<<endl;
 	}
 
 	cout << "wątki uruchomione" << endl;
 
+	/*
     for (int i=0; i<NPHIL; i++){
         philosophersThreads[i].join();
     }
-
+*/
 
 
 
