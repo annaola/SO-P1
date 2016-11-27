@@ -49,11 +49,13 @@ using namespace std;
 
 
 
+
 #define NPHIL 8 //liczba filozofów
 #define NSTOCK 5 //liczba używanych plików
 #define N 10
 
 //funkcja pomocnicza zamieniająca inta na stringa, służy do tworzenia nazw plików
+
 
 string IntToString (int a){
 	stringstream ss;
@@ -89,14 +91,10 @@ public:
 				dirty = false;
 				philId = holderID;
 				sem_post(&mutex);
-			}
-			else{
-				int x = rand()%1000;
- 				usleep(x);	
-			}
-					
+			}					
 		}
 	}
+
 	void setDirty(bool state){
 		dirty = state;
 	}
@@ -108,9 +106,7 @@ public:
 		philId{pId}
 		{
 			sem_init(&mutex, 0, 1);
-		}
-
-	
+		}	
 };
 
 
@@ -124,10 +120,10 @@ public:
 	Fork *forks[NSTOCK][NPHIL][NPHIL];//wskaźnik na tablicę forków
 
 	void chooseStocks(){
+		string s;
 		for (int i=0; i < NSTOCK; i++){
 			zasoby[i] = rand() % 2;
 		}
-
 	}
 
 	void think(){
@@ -166,6 +162,7 @@ public:
 				{
 					plik[i]<<id<<endl;
 				    plik[i].close();
+				    cout << "Filozof " << id << " wpisał się do pliku " << i << endl;
 				} else cout <<"brak dostępu";
 			}
 		}
