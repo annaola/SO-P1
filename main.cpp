@@ -112,7 +112,7 @@ class Philosopher
 	int id; //id filozofa
 
 public:
-	int zasoby[NSTOCK];	// 0 oznacza, że filozof nie kożysta z pliku i, a 1, że kożysta
+	int zasoby[NSTOCK];	// 0 oznacza, że filozof nie korzysta z pliku i, a 1, że korzysta
 	
 	Fork *forks[NSTOCK][NPHIL][NPHIL];	// wskaźnik na tablicę forków
 
