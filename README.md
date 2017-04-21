@@ -1,5 +1,5 @@
 # SO-P1
-Pracownia z systemów operacyjnych
+Pracownia z systemów operacyjnych - problem ucztujących filozofów
 
 Zespół: Anna Biadasiewicz, Michał Martusewicz
 
